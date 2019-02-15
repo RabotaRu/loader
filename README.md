@@ -61,7 +61,7 @@ const loader = new RetryOperationCached( 100 );
 
 // `example_operation_cache_key` - is a key for caching success result
 loader.retry( action, 10, 'example_operation_cache_key' ).then(result => {
-  // `result` now is an object: { item: <your content>, cached: <true/false> }
+  // `result` now is an object: { item: <your result>, cached: <true/false> }
 }).catch(error => {
   // content cannot be loaded after 10 attempts
   // will not be cached
