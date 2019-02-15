@@ -1,10 +1,10 @@
-import { EntityCache } from '../../entity-cache';
 import { RetryOperation } from './retry-operation';
+import { EntityCache } from '../utils/entity-cache';
 
 export class RetryOperationCached extends RetryOperation {
 
   /**
-   * @type {EntityCache}
+   * @type {EntityCache|*}
    * @private
    */
   _cache = null;

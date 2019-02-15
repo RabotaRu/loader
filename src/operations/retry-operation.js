@@ -1,6 +1,4 @@
-import { clampNumber } from '../../helpers';
-
-const delay = delayMs => new Promise(resolve => setTimeout(resolve, delayMs));
+import { clampNumber, delay } from '../utils/helpers';
 
 let OPERATION_ID = 1;
 
@@ -15,6 +13,7 @@ export class RetryOperation {
   /**
    * @abstract
    * @param {Function} operation
+   * @param {number} attempt
    * @return {Promise<*>}
    * @private
    */
@@ -26,7 +25,7 @@ export class RetryOperation {
 
   /**
    * @param {*} operation
-   * @param {number} attemptsNumber
+   * @param {number?} attemptsNumber
    * @returns {Promise<*>}
    */
   async retry (operation, attemptsNumber = 15) {
@@ -56,12 +55,12 @@ export class RetryOperation {
         const result = await asyncAction( attempts ); // split by variable to prevent unhandled errors
         return result;
       } catch (e) {
-        console.error( '[RetryOperation]', e );
+        console.error( '[RetryOperation] attempt failed', e.errors || e );
         attempts++;
         await delay(25 * Math.min(10, attempts) ** 2 + 500);
       }
     }
 
-    throw new Error( 'Retry operation failed' );
+    throw new Error( '[RetryOperation] operation failed' );
   }
 }
