@@ -51,6 +51,10 @@ export class RetryOperationCached extends RetryOperation {
     });
   }
 
+  clearCache () {
+    this._cache.clear();
+  }
+
   /**
    * @returns {EntityCache}
    */

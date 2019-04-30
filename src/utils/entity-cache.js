@@ -68,6 +68,11 @@ export class EntityCache {
     return this;
   }
 
+  clear () {
+    this._cache = {};
+    this._cacheHistory = [];
+  }
+
   /**
    * @returns {number}
    */
